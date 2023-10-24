@@ -1,0 +1,31 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<fesztivalozas xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="U3ROFS_XSD.xsd">
+
+    <!-- Fesztivál -->
+    <fesztival fesz_id="f1">
+        <nev>Balaton Sound</nev>
+        <helyszin>Zamárdi</helyszin>
+        <ev>2024</ev>
+    </fesztival>
+
+    <fesztival fesz_id="f2">
+        <nev>Sziget Fesztivál</nev>
+        <helyszin>Budapest</helyszin>
+        <ev>2023</ev>
+    </fesztival>
+
+
+    <!-- Tulajdonos -->
+    <tulajdonos t_id="t1" fesz_t="f1">
+        <nev>Nagy Máté</nev>
+        <adoszam>12345678-0-33</adoszam>
+        <alapitas>1998</alapitas>
+        <bevetel>350.000.000.000.000</bevetel>
+    </tulajdonos>
+
+    <tulajdonos t_id="t1" fesz_t="f1">
+        <nev>Gyáni Kevin Zsolt</nev>
+        <adoszam>87654322-5-06</adoszam>
+        <alapitas>2002</alapitas>
+        <bevetel>24.000.000</bevetel>
+    </tulajdonos>
