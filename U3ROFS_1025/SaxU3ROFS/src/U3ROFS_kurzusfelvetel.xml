@@ -21,12 +21,15 @@
             <hely>Ismeretlen</hely>
             <idopont>Ismeretlen</idopont>
             <oktato>Dr. Házy Attila</oktato>
-        <kurzus id="MIGEBIDFM1" jovahagyas="igen">
-            <kurzusnev>Idegen nyelv </kurzusnev>
+            <oraado></oraado> 
+        </kurzus>
+        <kurzus id="MIGEBIDFM1">
+            <kurzusnev>Idegen nyelv</kurzusnev>
             <kredit>0</kredit>
             <hely>A5 202</hely>
             <idopont>Hétfő 12:00 - 14:00</idopont>
             <oktato></oktato>
+            <oraado></oraado> 
         </kurzus>
         <kurzus id="GEIAL336-B">
             <kurzusnev>Webtechnológiák</kurzusnev>
@@ -34,6 +37,7 @@
             <hely>Inf 101</hely>
             <idopont>Hétfő 14:00-18:00</idopont>
             <oktato>Agárdi Anita</oktato>
+            <oraado></oraado> 
         </kurzus>
         <kurzus id="GEIAL332-B">
             <kurzusnev>Adatkezelés XML-ben</kurzusnev>
@@ -41,6 +45,7 @@
             <hely>Inf 101</hely>
             <idopont>Szerda 10:00-12:00</idopont>
             <oktato>Bednarik László</oktato>
+            <oraado></oraado> 
         </kurzus>
     </kurzusok>
 </U3ROFS_kurzusfelvetel>
