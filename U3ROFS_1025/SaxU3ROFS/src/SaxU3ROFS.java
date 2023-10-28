@@ -13,7 +13,8 @@ public class SaxU3ROFS {
 
             DefaultHandler handler = new DefaultHandler() {
 
-                public void startElement(String uri, String localName, String qName, Attributes attributes) throws SAXException {
+                public void startElement(String uri, String localName, String qName, Attributes attributes)
+                        throws SAXException {
                     System.out.println("start: " + qName);
                     int length = attributes.getLength();
                     for (int i = 0; i < length; i++) {
