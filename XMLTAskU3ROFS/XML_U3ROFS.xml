@@ -1,0 +1,71 @@
+<?xml version="1.0" encoding="utf-8"?>
+<U3ROFS_Autosiskolak xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XMLSchemaU3ROFS.xsd">
+
+<!-- Autosiskola -->
+<Autosiskola ai_id="1">
+    <nev>Go Car</nev>
+    <cim>1111 Budapest, Kossuth Lajos utca 1.</cim>
+    <telefon>06-70-123-4567</telefon>
+    <telefon>06-30-123-4567</telefon>
+</Autosiskola>
+<Autosiskola ai_id="2">
+    <nev>Guruljunk</nev>
+    <cim>1111 Budapest, Petőfi utca 2.</cim>
+    <telefon>06-70-123-4567</telefon>
+</Autosiskola>
+<Autosiskola ai_id="3">
+    <nev>UNI</nev>
+    <cim>3515, Miskolc, Egyetem út 1</cim>
+    <telefon>06-70-123-4567</telefon>
+    <telefon>06-30-123-4567</telefon>
+</Autosiskola>
+
+<!-- Oktatók -->
+<Oktato o_id="1" ai_id="1">
+    <nev>Kovács János</nev>
+    <fizetes>300000</fizetes>
+    <telefon>06-70-123-4567</telefon>
+    <telefon>06-30-123-4567</telefon>
+</Oktato>
+<Oktato o_id="2" ai_id="2">
+    <nev>Kiss János</nev>
+    <fizetes>300000</fizetes>
+    <telefon>06-70-123-4567</telefon>
+</Oktato>
+<Oktato o_id="3" ai_id="3">
+    <nev>Nagy János</nev>
+    <fizetes>300000</fizetes>
+    <telefon>06-70-123-4567</telefon>
+    <telefon>06-30-123-4567</telefon>
+</Oktato>
+<!--Ügyfelek-->
+<Ugyfel u_id="1" ai_id="1">
+    <nev>
+        <vezeteknev>Nagy</vezeteknev>
+        <keresztnev>Máté</keresztnev>
+    </nev>
+    <telefon>06-70-123-4567</telefon>
+    <telefon>06-30-123-4567</telefon>
+    <kor>18</kor>
+    <szuletesi_datum>2003-01-01</szuletesi_datum>
+</Ugyfel>
+<Ugyfel u_id="2" ai_id="2">
+    <nev>
+        <vezeteknev>Gyáni</vezeteknev>
+        <keresztnev>Kevin</keresztnev>
+    </nev>
+    <telefon>06-70-123-4567</telefon>
+    <kor>18</kor>
+    <szuletesi_datum>2003-01-01</szuletesi_datum>
+</Ugyfel>
+<Ugyfel u_id="3" ai_id="3">
+    <nev>
+        <vezeteknev>Kovács</vezeteknev>
+        <keresztnev>Ádám</keresztnev>
+    </nev>
+    <telefon>06-70-123-4567</telefon>
+    <telefon>06-30-123-4567</telefon>
+    <kor>18</kor>
+    <szuletesi_datum>2003-01-01</szuletesi_datum>
+</Ugyfel>
+</U3ROFS_Autosiskolak>
