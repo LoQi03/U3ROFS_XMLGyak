@@ -26,7 +26,7 @@
     <xs:simpleType name="SzuletesiDatumTipus">
         <xs:restriction base="xs:date">
             <xs:minInclusive value="1900-01-01" />
-            <xs:maxInclusive value="2021-12-31" />
+            <xs:maxInclusive value="2005-12-31" />
         </xs:restriction>
     </xs:simpleType>
 
@@ -51,7 +51,7 @@
                 </xs:complexType>
             </xs:element>
             <xs:element ref="telefon" maxOccurs="unbounded" />
-            <xs:element ref="kor" />
+            <xs:element ref="kor" minOccurs="1" />
             <xs:element ref="szuletesi_datum" />
         </xs:sequence>
         <xs:attribute name="u_id" type="xs:integer" />
