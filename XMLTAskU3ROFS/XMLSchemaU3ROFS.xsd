@@ -112,30 +112,30 @@
 
         <!--Elsődleges
         kulcsok-->
-        <xs:unique name="AutosiskolaPK">
+        <xs:key name="AutosiskolaPK">
             <xs:selector xpath="Autosiskola" />
             <xs:field xpath="@ai_id" />
-        </xs:unique>
+        </xs:key>
 
-        <xs:unique name="UgyfelPK">
+        <xs:key name="UgyfelPK">
             <xs:selector xpath="Ugyfel" />
             <xs:field xpath="@u_id" />
-        </xs:unique>
+        </xs:key>
 
-        <xs:unique name="OktatoPK">
+        <xs:key name="OktatoPK">
             <xs:selector xpath="Oktato" />
             <xs:field xpath="@o_id" />
-        </xs:unique>
+        </xs:key>
 
-        <xs:unique name="AutoPK">
+        <xs:key name="AutoPK">
             <xs:selector xpath="Auto" />
             <xs:field xpath="@au_id" />
-        </xs:unique>
+        </xs:key>
 
-        <xs:unique name="SzereloPK">
+        <xs:key name="SzereloPK">
             <xs:selector xpath="Szerelo" />
             <xs:field xpath="@sz_id" />
-        </xs:unique>
+        </xs:key>
 
         <!-- Idegen kulcsok -->
         <xs:keyref name="UgyfelAIFK" refer="AutosiskolaPK">
