@@ -1,121 +1,236 @@
-<?xml version="1.0" encoding="UTF-8"?><U3ROFS_Autosiskolak xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="XMLSchemaU3ROFS.xsd">
-
-    <!-- Autosiskolák -->
-    <Autosiskola ai_id="4">
-        <nev>Fast Car</nev>
-        <cim>1111 Budapest, Kossuth Lajos utca 1.</cim>
-        <telefon>06-70-123-4567</telefon>
-        <telefon>06-30-123-4567</telefon>
-    </Autosiskola>
-    <Autosiskola ai_id="2">
-        <nev>Guruljunk</nev>
-        <cim>1111 Budapest, Petőfi utca 2.</cim>
-        <telefon>06-70-123-4567</telefon>
-    </Autosiskola>
-    <Autosiskola ai_id="3">
-        <nev>UNI</nev>
-        <cim>3515, Miskolc, Egyetem út 1</cim>
-        <telefon>06-70-123-4567</telefon>
-        <telefon>06-30-123-4567</telefon>
-    </Autosiskola>
-
-    <!--Ügyfelek-->
-    <Ugyfel ai_id="4" o_id="1" u_id="1">
-        <nev>
-            <vezeteknev>Kis</vezeteknev>
-            <keresztnev>Gábor</keresztnev>
-        </nev>
-        <telefon>06-70-123-4567</telefon>
-        <telefon>06-30-123-4567</telefon>
-        <kor>18</kor>
-        <szuletesi_datum>2003-01-01</szuletesi_datum>
-    </Ugyfel>
-    <Ugyfel ai_id="2" o_id="2" u_id="2">
-        <nev>
-            <vezeteknev>Gyáni</vezeteknev>
-            <keresztnev>Kevin</keresztnev>
-        </nev>
-        <telefon>06-70-123-4567</telefon>
-        <kor>18</kor>
-        <szuletesi_datum>2003-01-01</szuletesi_datum>
-    </Ugyfel>
-    <Ugyfel ai_id="3" o_id="3" u_id="3">
-        <nev>
-            <vezeteknev>Kovács</vezeteknev>
-            <keresztnev>Ádám</keresztnev>
-        </nev>
-        <telefon>06-70-123-4567</telefon>
-        <telefon>06-30-123-4567</telefon>
-        <kor>18</kor>
-        <szuletesi_datum>2003-01-01</szuletesi_datum>
-    </Ugyfel>
-
-    <!-- Oktatók -->
-    <Oktato ai_id="4" o_id="1">
-        <nev>Kovács János</nev>
-        <fizetes>350000</fizetes>
-        <telefon>06-70-123-4567</telefon>
-        <telefon>06-30-123-4567</telefon>
-    </Oktato>
-    <Oktato ai_id="2" o_id="2">
-        <nev>Kiss János</nev>
-        <fizetes>300000</fizetes>
-        <telefon>06-70-123-4567</telefon>
-    </Oktato>
-    <Oktato ai_id="3" o_id="3">
-        <nev>Nagy János</nev>
-        <fizetes>300000</fizetes>
-        <telefon>06-70-123-4567</telefon>
-        <telefon>06-30-123-4567</telefon>
-    </Oktato>
-
-    <!-- Autók -->
-    <Auto au_id="1" o_id="1">
-        <rendszam>ABC-111</rendszam>
-        <tipus>Astra</tipus>
-        <marka>Chevrolet</marka>
-    </Auto>
-    <Auto au_id="2" o_id="2">
-        <rendszam>ABC-222</rendszam>
-        <tipus>Focus</tipus>
-        <marka>Ford</marka>
-    </Auto>
-    <Auto au_id="3" o_id="3">
-        <rendszam>ABC-333</rendszam>
-        <tipus>Corolla</tipus>
-        <marka>Toyota</marka>
-    </Auto>
-
-    <!-- Szerelők -->
-    <Szerelo au_id="1" sz_id="1">
-        <nev>Kovács Béla</nev>
-        <fizetes>400000</fizetes>
-        <telefon>06-70-123-1111</telefon>
-        <telefon>06-30-123-1112</telefon>
-    </Szerelo>
-    <Szerelo au_id="2" sz_id="2">
-        <nev>Kiss Adorján</nev>
-        <fizetes>420000</fizetes>
-        <telefon>06-70-123-2222</telefon>
-    </Szerelo>
-    <Szerelo au_id="3" sz_id="3">
-        <nev>Nagy Ferenc</nev>
-        <fizetes>450000</fizetes>
-        <telefon>06-70-123-3333</telefon>
-        <telefon>06-30-123-3334</telefon>
-    </Szerelo>
-
-    <!-- Cserélt alkatrészek -->
-    <cserealkatreszek au_id="1" sz_id="1">
-        <cserealkatresz>kuplung</cserealkatresz>
-        <cserealkatresz>féktárcsa</cserealkatresz>
-    </cserealkatreszek>
-    <cserealkatreszek au_id="2" sz_id="2">
-        <cserealkatresz>motor</cserealkatresz>
-        <cserealkatresz>lengőkar</cserealkatresz>
-    </cserealkatreszek>
-    <cserealkatreszek au_id="3" sz_id="3">
-        <cserealkatresz>szélvédő</cserealkatresz>
-    </cserealkatreszek>
-
-</U3ROFS_Autosiskolak>
+U3ROFS_Autosiskolak {xmlns:xsi=http://www.w3.org/2001/XMLSchema-instance,xsi:noNamespaceSchemaLocation=XMLSchemaU3ROFS.xsd} start
+    Autosiskola {ai_id=4} start
+        nev start
+            Fast Car
+        nev end
+        cim start
+            1111 Budapest, Kossuth Lajos utca 1.
+        cim end
+        telefon start
+            06-70-123-4567
+        telefon end
+        telefon start
+            06-30-123-4567
+        telefon end
+    Autosiskola end
+    Autosiskola {ai_id=2} start
+        nev start
+            Guruljunk
+        nev end
+        cim start
+            1111 Budapest, Petőfi utca 2.
+        cim end
+        telefon start
+            06-70-123-4567
+        telefon end
+    Autosiskola end
+    Autosiskola {ai_id=3} start
+        nev start
+            UNI
+        nev end
+        cim start
+            3515, Miskolc, Egyetem út 1
+        cim end
+        telefon start
+            06-70-123-4567
+        telefon end
+        telefon start
+            06-30-123-4567
+        telefon end
+    Autosiskola end
+    Ugyfel {ai_id=4,o_id=1,u_id=1} start
+        nev start
+            vezeteknev start
+                Kis
+            vezeteknev end
+            keresztnev start
+                Gábor
+            keresztnev end
+        nev end
+        telefon start
+            06-70-123-4567
+        telefon end
+        telefon start
+            06-30-123-4567
+        telefon end
+        kor start
+            18
+        kor end
+        szuletesi_datum start
+            2003-01-01
+        szuletesi_datum end
+    Ugyfel end
+    Ugyfel {ai_id=2,o_id=2,u_id=2} start
+        nev start
+            vezeteknev start
+                Gyáni
+            vezeteknev end
+            keresztnev start
+                Kevin
+            keresztnev end
+        nev end
+        telefon start
+            06-70-123-4567
+        telefon end
+        kor start
+            18
+        kor end
+        szuletesi_datum start
+            2003-01-01
+        szuletesi_datum end
+    Ugyfel end
+    Ugyfel {ai_id=3,o_id=3,u_id=3} start
+        nev start
+            vezeteknev start
+                Kovács
+            vezeteknev end
+            keresztnev start
+                Ádám
+            keresztnev end
+        nev end
+        telefon start
+            06-70-123-4567
+        telefon end
+        telefon start
+            06-30-123-4567
+        telefon end
+        kor start
+            18
+        kor end
+        szuletesi_datum start
+            2003-01-01
+        szuletesi_datum end
+    Ugyfel end
+    Oktato {ai_id=4,o_id=1} start
+        nev start
+            Kovács János
+        nev end
+        fizetes start
+            350000
+        fizetes end
+        telefon start
+            06-70-123-4567
+        telefon end
+        telefon start
+            06-30-123-4567
+        telefon end
+    Oktato end
+    Oktato {ai_id=2,o_id=2} start
+        nev start
+            Kiss János
+        nev end
+        fizetes start
+            300000
+        fizetes end
+        telefon start
+            06-70-123-4567
+        telefon end
+    Oktato end
+    Oktato {ai_id=3,o_id=3} start
+        nev start
+            Nagy János
+        nev end
+        fizetes start
+            300000
+        fizetes end
+        telefon start
+            06-70-123-4567
+        telefon end
+        telefon start
+            06-30-123-4567
+        telefon end
+    Oktato end
+    Auto {au_id=1,o_id=1} start
+        rendszam start
+            ABC-111
+        rendszam end
+        tipus start
+            Astra
+        tipus end
+        marka start
+            Chevrolet
+        marka end
+    Auto end
+    Auto {au_id=2,o_id=2} start
+        rendszam start
+            ABC-222
+        rendszam end
+        tipus start
+            Focus
+        tipus end
+        marka start
+            Ford
+        marka end
+    Auto end
+    Auto {au_id=3,o_id=3} start
+        rendszam start
+            ABC-333
+        rendszam end
+        tipus start
+            Corolla
+        tipus end
+        marka start
+            Toyota
+        marka end
+    Auto end
+    Szerelo {au_id=1,sz_id=1} start
+        nev start
+            Kovács Béla
+        nev end
+        fizetes start
+            400000
+        fizetes end
+        telefon start
+            06-70-123-1111
+        telefon end
+        telefon start
+            06-30-123-1112
+        telefon end
+    Szerelo end
+    Szerelo {au_id=2,sz_id=2} start
+        nev start
+            Kiss Adorján
+        nev end
+        fizetes start
+            420000
+        fizetes end
+        telefon start
+            06-70-123-2222
+        telefon end
+    Szerelo end
+    Szerelo {au_id=3,sz_id=3} start
+        nev start
+            Nagy Ferenc
+        nev end
+        fizetes start
+            450000
+        fizetes end
+        telefon start
+            06-70-123-3333
+        telefon end
+        telefon start
+            06-30-123-3334
+        telefon end
+    Szerelo end
+    cserealkatreszek {au_id=1,sz_id=1} start
+        cserealkatresz start
+            kuplung
+        cserealkatresz end
+        cserealkatresz start
+            féktárcsa
+        cserealkatresz end
+    cserealkatreszek end
+    cserealkatreszek {au_id=2,sz_id=2} start
+        cserealkatresz start
+            motor
+        cserealkatresz end
+        cserealkatresz start
+            lengőkar
+        cserealkatresz end
+    cserealkatreszek end
+    cserealkatreszek {au_id=3,sz_id=3} start
+        cserealkatresz start
+            szélvédő
+        cserealkatresz end
+    cserealkatreszek end
+U3ROFS_Autosiskolak end

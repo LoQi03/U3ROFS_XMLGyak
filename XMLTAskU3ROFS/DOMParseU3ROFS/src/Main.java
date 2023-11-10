@@ -11,7 +11,6 @@ public class Main {
         //RootElement beolvasása
         ArrayList<Element> elements = DomReadU3ROFS.ReadXMLDocument("./src/XML_U3ROFS.xml");
         //Elementek kiíratása consolra
-        DomWriteU3ROFS.WriteElementsToConsole(elements);
         //Elementek módosítása
         DomModifyU3ROFS.ModifyElement(elements);
         //Elementek lekérdezése

@@ -11,6 +11,7 @@ public class DomModifyU3ROFS {
         {
             ModifyPrescribedElements(editedElements.get(i));
         }
+        DomWriteU3ROFS.WriteElementsToConsoleAndFile(editedElements,"./src/XML_U3ROFS1.xml");
         return editedElements;
     }
     private static void ModifyPrescribedElements(Element element)
@@ -50,8 +51,5 @@ public class DomModifyU3ROFS {
         Element cserealkatreszek = (Element) cserealkatreszekList.item(0);
         cserealkatreszek.getElementsByTagName("cserealkatresz").item(0).setTextContent("kuplung");
 
-        //Kiírom egy fájlba és a consolra a módosított elemeket
-        DomWriteU3ROFS.WriteXMLDocumentToConsole(element);
-        DomWriteU3ROFS.WriteXMLDocumentToFile(element,"./src/XML_U3ROFS1.xml");
     }
 }

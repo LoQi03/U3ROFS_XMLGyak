@@ -43,7 +43,7 @@ public class DomQueryU3ROFS {
         for (int i = 0; i < ugyfelList.getLength(); i++) {
             Node node = ugyfelList.item(i);
             // Ellenőrzi, hogy az elem tényleg elem típusú-e és az "ai_id" attribútum értéke "1"
-            if (node.getNodeType() == Node.ELEMENT_NODE && "1".equals(((Element) node).getAttribute("ai_id"))) {
+            if (node.getNodeType() == Node.ELEMENT_NODE && "2".equals(((Element) node).getAttribute("ai_id"))) {
                 Element ugyfel = (Element) node;
                 // Kiírja az ügyfél nevét
                 System.out.println("Ügyfél név: " + ugyfel.getElementsByTagName("nev").item(0).getTextContent());
@@ -62,7 +62,7 @@ public class DomQueryU3ROFS {
             // Ellenőrzi, hogy az elem tényleg elem típusú-e és az "ai_id" attribútum értéke "1"
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element oktato = (Element) node;
-                if ("1".equals(oktato.getAttribute("ai_id"))) {
+                if ("2".equals(oktato.getAttribute("ai_id"))) {
                     // Kiírja az oktató nevét és fizetését
                     System.out.println("Oktató neve: " + oktato.getElementsByTagName("nev").item(0).getTextContent());
                     System.out.println("Fizetése: " + oktato.getElementsByTagName("fizetes").item(0).getTextContent());
