@@ -9,8 +9,6 @@ import javax.xml.parsers.ParserConfigurationException;
 import java.io.File;
 import java.io.FileWriter;
 import java.io.IOException;
-import java.util.ArrayList;
-import java.util.List;
 
 public class DomWriteU3ROFS {
     public static void WriteElementsToFileAndConsole(String currentFilePath, String copyFilePath) {
