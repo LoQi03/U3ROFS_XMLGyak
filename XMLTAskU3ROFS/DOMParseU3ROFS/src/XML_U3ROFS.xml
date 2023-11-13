@@ -1,6 +1,6 @@
 <?xml version="1.0" encoding="utf-8"?>
 <U3ROFS_Autosiskolak xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
-    xsi:noNamespaceSchemaLocation="XMLSchemaU3ROFS.xsd">
+                     xsi:noNamespaceSchemaLocation="XMLSchemaU3ROFS.xsd">
 
     <!-- Autosiskolák -->
     <Autosiskola ai_id="1">
