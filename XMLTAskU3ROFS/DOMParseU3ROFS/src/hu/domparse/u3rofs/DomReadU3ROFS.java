@@ -16,11 +16,12 @@ public class DomReadU3ROFS {
 
                 System.out.println("Gyökérelem: " + doc.getDocumentElement().getNodeName() + "beolvasása sikeres!");
                 NodeList root = doc.getElementsByTagName("U3ROFS_Autosiskolak");
-                NodeList autosiskolaList = doc.getElementsByTagName("Autosiskola");
-                NodeList ugyfelList = doc.getElementsByTagName("Ugyfel");
-                NodeList oktatoList = doc.getElementsByTagName("Oktato");
-                NodeList autoList = doc.getElementsByTagName("Auto");
-                NodeList szereloList = doc.getElementsByTagName("Szerelo");
+                Element rootElement = (Element) root.item(0);
+                NodeList autosiskolaList = rootElement.getElementsByTagName("Autosiskola");
+                NodeList ugyfelList = rootElement.getElementsByTagName("Ugyfel");
+                NodeList oktatoList = rootElement.getElementsByTagName("Oktato");
+                NodeList autoList = rootElement.getElementsByTagName("Auto");
+                NodeList szereloList = rootElement.getElementsByTagName("Szerelo");
             } catch (ParserConfigurationException e) {
                 e.printStackTrace();
             } catch (IOException e) {
