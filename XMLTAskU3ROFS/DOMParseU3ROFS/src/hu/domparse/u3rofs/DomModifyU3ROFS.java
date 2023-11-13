@@ -1,21 +1,32 @@
 package hu.domparse.u3rofs;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.NodeList;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
 import java.util.ArrayList;
 
 public class DomModifyU3ROFS {
-    public static ArrayList<Element> ModifyElement(ArrayList<Element> elements) {
-        ArrayList<Element> editedElements = elements;
-        for (int i=0;i<editedElements.size();i++)
-        {
-            ModifyPrescribedElements(editedElements.get(i));
+    public static void ModifyElement(String filePath) {
+        try {
+            File inputFile = new File(filePath);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
+            ModifyPrescribedElements(doc);
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        DomWriteU3ROFS.WriteElementsToConsoleAndFile(editedElements,"./src/XML_U3ROFS1.xml");
-        return editedElements;
     }
-    private static void ModifyPrescribedElements(Element element)
+    private static void ModifyPrescribedElements(Document doc)
     {
+        //Root Element lekérése
+        NodeList nList = doc.getElementsByTagName("U3ROFS_Autosiskolak");
+        Element element = (Element) nList.item(0);
         //Megváltoztatom az autosiskolákból az első elem nevét
         NodeList autosiskolaList = element.getElementsByTagName("Autosiskola");
         Element autosiskola = (Element) autosiskolaList.item(0);

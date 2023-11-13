@@ -1,26 +1,35 @@
 package hu.domparse.u3rofs;
 
+import org.w3c.dom.Document;
 import org.w3c.dom.Element;
 import org.w3c.dom.Node;
 import org.w3c.dom.NodeList;
 
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import java.io.File;
 import java.util.ArrayList;
 
 public class DomQueryU3ROFS {
-    public static void QueryDetails(ArrayList<Element> elements)
-    {
-        for (int i=0;i<elements.size();i++)
-        {
-           QueryPrescribedDetails(elements.get(i));
+
+    public static void QueryPrescribedDetails(String filePath) {
+        Document doc = null;
+        try {
+            File inputFile = new File(filePath);
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-    }
-    private static void QueryPrescribedDetails(Element element) {
+
         // Új szakasz kezdete a konzolon
         System.out.println();
         // Kiírja, hogy "Összes autósiskola:"
         System.out.println("Összes autósiskola:");
         // Lekéri az összes "Autosiskola" elemet az XML-ből
-        NodeList autosiskolaList = element.getElementsByTagName("Autosiskola");
+        NodeList autosiskolaList = doc.getElementsByTagName("Autosiskola");
         // Végigmegy az összes autósiskola elemen
         for (int i = 0; i < autosiskolaList.getLength(); i++) {
             Node node = autosiskolaList.item(i);
@@ -38,7 +47,7 @@ public class DomQueryU3ROFS {
         // Kiírja, hogy "Összes Ugyfel adatainak kiíratása, akik egy bizonyos Autosiskola-hoz tartoznak"
         System.out.println("Összes Ugyfel adatainak kiíratása, akik egy bizonyos Autosiskola-hoz tartoznak");
         // Lekéri az összes "Ugyfel" elemet az XML-ből
-        NodeList ugyfelList = element.getElementsByTagName("Ugyfel");
+        NodeList ugyfelList = doc.getElementsByTagName("Ugyfel");
         // Végigmegy az összes ügyfél elemen
         for (int i = 0; i < ugyfelList.getLength(); i++) {
             Node node = ugyfelList.item(i);
@@ -55,7 +64,7 @@ public class DomQueryU3ROFS {
         // Kiírja, hogy "Azoknak az Oktato-knak a neve és fizetése, akik bizonyos Autosiskola-ban tanítanak"
         System.out.println("Azoknak az Oktato-knak a neve és fizetése, akik bizonyos Autosiskola-ban tanítanak");
         // Lekéri az összes "Oktato" elemet az XML-ből
-        NodeList oktatoList = element.getElementsByTagName("Oktato");
+        NodeList oktatoList = doc.getElementsByTagName("Oktato");
         // Végigmegy az összes oktató elemen
         for (int i = 0; i < oktatoList.getLength(); i++) {
             Node node = oktatoList.item(i);
@@ -75,7 +84,7 @@ public class DomQueryU3ROFS {
         // Kiírja, hogy "Az Auto elemek rendszam, tipus, és marka adatainak kiíratása"
         System.out.println("Az Auto elemek rendszam, tipus, és marka adatainak kiíratása");
         // Lekéri az összes "Auto" elemet az XML-ből
-        NodeList autoList = element.getElementsByTagName("Auto");
+        NodeList autoList = doc.getElementsByTagName("Auto");
         // Végigmegy az összes auto elemen
         for (int i = 0; i < autoList.getLength(); i++) {
             Node node = autoList.item(i);
@@ -94,7 +103,7 @@ public class DomQueryU3ROFS {
         System.out.println("Szerelők és az általuk szerelt autók, valamint a cserélt alkatrészek:");
 
         // Lekéri az összes "Szerelo" elemet az XML-ből
-        NodeList szereloList = element.getElementsByTagName("Szerelo");
+        NodeList szereloList = doc.getElementsByTagName("Szerelo");
         for (int i = 0; i < szereloList.getLength(); i++) {
             Node szereloNode = szereloList.item(i);
             // Ellenőrzi, hogy az elem tényleg elem típusú-e
@@ -121,7 +130,7 @@ public class DomQueryU3ROFS {
                 }
 
                 // Lekéri az összes "cserealkatreszek" elemet az XML-ből
-                NodeList cserealkatreszekList = element.getElementsByTagName("cserealkatreszek");
+                NodeList cserealkatreszekList = doc.getElementsByTagName("cserealkatreszek");
                 for (int k = 0; k < cserealkatreszekList.getLength(); k++) {
                     Node cserealkatreszekNode = cserealkatreszekList.item(k);
                     // Ellenőrzi, hogy az elem tényleg elem típusú-e és az auto ID egyezik-e
