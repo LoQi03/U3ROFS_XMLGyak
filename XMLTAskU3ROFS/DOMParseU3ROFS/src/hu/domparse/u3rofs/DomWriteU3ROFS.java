@@ -11,7 +11,7 @@ import java.io.FileWriter;
 import java.io.IOException;
 
 public class DomWriteU3ROFS {
-    public static void WriteElementsToFileAndConsole(String currentFilePath, String copyFilePath) {
+    public static void WriteElementsToFileAndConsole(String currentFilePath) {
         try {
             File inputFile = new File(currentFilePath);
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
@@ -20,7 +20,7 @@ public class DomWriteU3ROFS {
             doc.getDocumentElement().normalize();
 
             // Nyitunk egy fájlt a kiírásra
-            File outputFile = new File(copyFilePath);
+            File outputFile = new File("XML_U3ROFS1.xml");
             FileWriter writer = new FileWriter(outputFile);
 
             // Kiírjuk az XML deklarációt
@@ -41,43 +41,45 @@ public class DomWriteU3ROFS {
     }
 
     private static void collectAndWriteElements(Element element, FileWriter writer, int depth) throws IOException {
-        // Az elem kezdő tagjének írása a konzolra
-        System.out.println(getIndentation(depth) + "<" + element.getNodeName() + ">");
-
-        // Az elem kezdő tagjének írása a fájlba
+        // Nyitó tag kiírása
         writer.write(getIndentation(depth) + "<" + element.getNodeName());
+        System.out.print(getIndentation(depth) + "<" + element.getNodeName());
 
-        // Az attribútumok kiírása
+        // Attribútumok kiírása
         NamedNodeMap attributes = element.getAttributes();
         for (int i = 0; i < attributes.getLength(); i++) {
             Node attribute = attributes.item(i);
             writer.write(" " + attribute.getNodeName() + "=\"" + attribute.getNodeValue() + "\"");
+            System.out.print(" " + attribute.getNodeName() + "=\"" + attribute.getNodeValue() + "\"");
         }
 
         writer.write(">");
+        System.out.print(">");
 
-        // Az elem tartalmának kiírása (szöveg és gyerekelemek)
+        // Gyerek elemek és szöveg kiírása
         NodeList children = element.getChildNodes();
         for (int i = 0; i < children.getLength(); i++) {
             Node child = children.item(i);
+
             if (child.getNodeType() == Node.ELEMENT_NODE) {
-                // Rekurzív hívás az elem gyerekeire
+                writer.write("\n"); // Új sor az elemek előtt
+                System.out.println();
                 collectAndWriteElements((Element) child, writer, depth + 1);
             } else if (child.getNodeType() == Node.TEXT_NODE) {
-                // Szöveges tartalom kiírása a konzolon
                 String textContent = child.getNodeValue().trim();
                 if (!textContent.isEmpty()) {
-                    System.out.println(getIndentation(depth + 1) + textContent);
+                    writer.write(textContent);
+                    System.out.print(textContent);
                 }
-                // Szöveges tartalom kiírása a fájlba
-                writer.write(textContent);
             }
         }
 
-        // Az elem záró tagjének írása a fájlba
-        String closingTag = "</" + element.getNodeName() + ">";
-        System.out.println(getIndentation(depth) + closingTag);
-        writer.write(getIndentation(depth) + closingTag + "\n");
+        // Záró tag
+        if (element.getChildNodes().getLength() > 0) {
+            System.out.print(getIndentation(depth));
+        }
+        writer.write("</" + element.getNodeName() + ">");
+        System.out.print("</" + element.getNodeName() + ">");
     }
 
     private static String getIndentation(int depth) {

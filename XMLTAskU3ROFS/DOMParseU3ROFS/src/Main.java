@@ -13,7 +13,7 @@ public class Main {
         //Elementek módosítása
         DomModifyU3ROFS.ModifyElement("./src/XML_U3ROFS.xml");
         //Elemek kiírása
-        DomWriteU3ROFS.WriteElementsToFileAndConsole("./src/XML_U3ROFS.xml","./src/XML_U3ROFS1.xml");
+        DomWriteU3ROFS.WriteElementsToFileAndConsole("./src/XML_U3ROFS.xml");
         //Elementek lekérdezése
         DomQueryU3ROFS.QueryPrescribedDetails("./src/XML_U3ROFS.xml");
     }
