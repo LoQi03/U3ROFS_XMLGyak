@@ -4,7 +4,6 @@ import org.xml.sax.SAXException;
 
 import javax.xml.parsers.*;
 import java.io.*;
-import java.util.ArrayList;
 
 public class DomReadU3ROFS {
     public static void ReadXMLDocument(String filePath) {
