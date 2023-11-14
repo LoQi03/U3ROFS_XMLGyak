@@ -199,8 +199,7 @@ public class DomWriteU3ROFS {
             NodeList autoList = doc.getElementsByTagName("Auto");
             NodeList szereloList = doc.getElementsByTagName("Szerelo");
             NodeList cserealkatreszekList = doc.getElementsByTagName("cserealkatreszek");
-
-            // Kiírjuk az XML-t a konzolra megtartva az eredeti formázást
+            
             printNodeList(autosiskolaList, writer);
             System.out.println("");
             writer.println("");
