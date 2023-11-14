@@ -1,92 +1,289 @@
 package hu.domparse.u3rofs;
-
 import org.w3c.dom.*;
-import org.xml.sax.SAXException;
-
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.OutputKeys;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerFactory;
 import java.io.File;
 import java.io.FileWriter;
-import java.io.IOException;
+import java.io.PrintWriter;
+import java.util.Arrays;
+import java.util.List;
+import java.util.StringJoiner;
 
 public class DomWriteU3ROFS {
-    public static void WriteElementsToFileAndConsole(String currentFilePath) {
+    public static void WriteElementsToFileAndConsole() {
         try {
-            File inputFile = new File(currentFilePath);
-            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-            Document doc = dBuilder.parse(inputFile);
-            doc.getDocumentElement().normalize();
 
-            // Nyitunk egy fájlt a kiírásra
-            File outputFile = new File("XML_U3ROFS1.xml");
-            FileWriter writer = new FileWriter(outputFile);
+            DocumentBuilderFactory factory = DocumentBuilderFactory.newInstance();
+            DocumentBuilder builder = factory.newDocumentBuilder();
+            Document doc = builder.newDocument();
 
-            // Kiírjuk az XML deklarációt
-            writer.write("<?xml version=\"1.0\" encoding=\"utf-8\"?>\n");
+            Element rootElement = doc.createElement("U3ROFS_Autosiskolak");
+            rootElement.setAttribute("xmlns:xsi", "http://www.w3.org/2001/XMLSchema-instance");
+            rootElement.setAttribute("xsi:noNamespaceSchemaLocation", "XMLSchemaU3ROFS.xsd");
+            doc.appendChild(rootElement);
 
-            // Rekurzív függvény a gyűjtéshez és kiíráshoz
-            collectAndWriteElements(doc.getDocumentElement(), writer, 0);
+            addAutosiskola(doc, rootElement, "1", "Go Car", "1111 Budapest, Kossuth Lajos utca 1.", Arrays.asList("06-70-123-4567", "06-30-123-4567"));
+            addAutosiskola(doc, rootElement, "2", "Guruljunk", "1111 Budapest, Petőfi utca 2.", Arrays.asList("06-70-123-4567"));
+            addAutosiskola(doc, rootElement, "3", "UNI", "3515, Miskolc, Egyetem út 1", Arrays.asList("06-70-123-4567", "06-30-123-4567"));
 
-            // Fájl bezárása
-            writer.close();
-        } catch (IOException e) {
+            addUgyfel(doc, rootElement, "1", "1", "1", "Nagy", "Máté", Arrays.asList("06-70-123-4567", "06-30-123-4567"), "18", "2003-01-01");
+            addUgyfel(doc, rootElement, "2", "2", "2", "Gyáni", "Kevin", Arrays.asList("06-70-123-4567"), "18", "2003-01-01");
+            addUgyfel(doc, rootElement, "3", "3", "3", "Kovács", "Ádám", Arrays.asList("06-70-123-4567", "06-30-123-4567"), "18", "2003-01-01");
+
+            addOktato(doc, rootElement, "1", "1", "Kovács János", "300000", Arrays.asList("06-70-123-4567", "06-30-123-4567"));
+            addOktato(doc, rootElement, "2", "2", "Kiss János", "300000", Arrays.asList("06-70-123-4567"));
+            addOktato(doc, rootElement, "3", "3", "Nagy János", "300000", Arrays.asList("06-70-123-4567", "06-30-123-4567"));
+
+            addAuto(doc, rootElement, "1", "1", "ABC-111", "Astra", "Opel");
+            addAuto(doc, rootElement, "2", "2", "ABC-222", "Focus", "Ford");
+            addAuto(doc, rootElement, "3", "3", "ABC-333", "Corolla", "Toyota");
+
+            addSzerelo(doc, rootElement, "1", "1", "Kovács Abdul", "400000", Arrays.asList("06-70-123-1111", "06-30-123-1112"));
+            addSzerelo(doc, rootElement, "2", "2", "Kiss Adorján", "420000", Arrays.asList("06-70-123-2222"));
+            addSzerelo(doc, rootElement, "3", "3", "Nagy Ferenc", "450000", Arrays.asList("06-70-123-3333", "06-30-123-3334"));
+
+
+            addCserealkatreszek(doc, rootElement, "1", "1", Arrays.asList("fékbetét", "féktárcsa"));
+            addCserealkatreszek(doc, rootElement, "2", "2", Arrays.asList("motor", "lengőkar"));
+            addCserealkatreszek(doc, rootElement, "3", "3", Arrays.asList("szélvédő"));
+
+            // Transform and save to file
+            TransformerFactory transformerFactory = TransformerFactory.newInstance();
+            Transformer transformer = transformerFactory.newTransformer();
+            transformer.setOutputProperty(OutputKeys.ENCODING, "UTF-8");
+            transformer.setOutputProperty(OutputKeys.INDENT, "yes");
+            transformer.setOutputProperty("{https://xml.apache.org/xslt}indent-amount", "2");
+
+            printDocument(doc);
+        } catch (Exception e) {
             e.printStackTrace();
-        } catch (ParserConfigurationException e) {
-            throw new RuntimeException(e);
-        } catch (SAXException e) {
-            throw new RuntimeException(e);
         }
     }
 
-    private static void collectAndWriteElements(Element element, FileWriter writer, int depth) throws IOException {
-        // Nyitó tag kiírása
-        writer.write(getIndentation(depth) + "<" + element.getNodeName());
-        System.out.print(getIndentation(depth) + "<" + element.getNodeName());
+    private static void addAutosiskola(Document doc, Element rootElement, String ai_id, String nev, String cim, List<String> telefonok) {
+        Element autosiskola = doc.createElement("Autosiskola");
+        autosiskola.setAttribute("ai_id", ai_id);
 
-        // Attribútumok kiírása
-        NamedNodeMap attributes = element.getAttributes();
-        for (int i = 0; i < attributes.getLength(); i++) {
-            Node attribute = attributes.item(i);
-            writer.write(" " + attribute.getNodeName() + "=\"" + attribute.getNodeValue() + "\"");
-            System.out.print(" " + attribute.getNodeName() + "=\"" + attribute.getNodeValue() + "\"");
+        Element nevElement = createElement(doc, "nev", nev);
+        Element cimElement = createElement(doc, "cim", cim);
+        autosiskola.appendChild(nevElement);
+        autosiskola.appendChild(cimElement);
+
+        for (String telefon : telefonok) {
+            Element telefonElement = createElement(doc, "telefon", telefon);
+            autosiskola.appendChild(telefonElement);
         }
 
-        writer.write(">");
-        System.out.print(">");
+        rootElement.appendChild(autosiskola);
+    }
+    private static void addUgyfel(Document doc, Element rootElement, String u_id, String ai_id, String o_id, String vezeteknev, String keresztnev, List<String> telefonok, String kor, String szuletesiDatum) {
+        Element ugyfel = doc.createElement("Ugyfel");
+        ugyfel.setAttribute("u_id", u_id);
+        ugyfel.setAttribute("ai_id", ai_id);
+        ugyfel.setAttribute("o_id", o_id);
 
-        // Gyerek elemek és szöveg kiírása
-        NodeList children = element.getChildNodes();
-        for (int i = 0; i < children.getLength(); i++) {
-            Node child = children.item(i);
+        Element nevElement = doc.createElement("nev");
+        Element vezeteknevElement = createElement(doc, "vezeteknev", vezeteknev);
+        Element keresztnevElement = createElement(doc, "keresztnev", keresztnev);
+        nevElement.appendChild(vezeteknevElement);
+        nevElement.appendChild(keresztnevElement);
 
-            if (child.getNodeType() == Node.ELEMENT_NODE) {
-                writer.write("\n"); // Új sor az elemek előtt
-                System.out.println();
-                collectAndWriteElements((Element) child, writer, depth + 1);
-            } else if (child.getNodeType() == Node.TEXT_NODE) {
-                String textContent = child.getNodeValue().trim();
-                if (!textContent.isEmpty()) {
-                    writer.write(textContent);
-                    System.out.print(textContent);
-                }
+        ugyfel.appendChild(nevElement);
+
+        for (String telefon : telefonok) {
+            Element telefonElement = createElement(doc, "telefon", telefon);
+            ugyfel.appendChild(telefonElement);
+        }
+
+        Element korElement = createElement(doc, "kor", kor);
+        Element szuletesiDatumElement = createElement(doc, "szuletesi_datum", szuletesiDatum);
+
+        ugyfel.appendChild(korElement);
+        ugyfel.appendChild(szuletesiDatumElement);
+
+        rootElement.appendChild(ugyfel);
+    }
+    private static void addOktato(Document doc, Element rootElement, String o_id, String ai_id, String nev, String fizetes, List<String> telefonok) {
+        Element oktato = doc.createElement("Oktato");
+        oktato.setAttribute("o_id", o_id);
+        oktato.setAttribute("ai_id", ai_id);
+
+        Element nevElement = createElement(doc, "nev", nev);
+        Element fizetesElement = createElement(doc, "fizetes", fizetes);
+
+        oktato.appendChild(nevElement);
+        oktato.appendChild(fizetesElement);
+
+        for (String telefon : telefonok) {
+            Element telefonElement = createElement(doc, "telefon", telefon);
+            oktato.appendChild(telefonElement);
+        }
+
+        rootElement.appendChild(oktato);
+    }
+    private static void addAuto(Document doc, Element rootElement, String au_id, String o_id, String rendszam, String tipus, String marka) {
+        Element auto = doc.createElement("Auto");
+        auto.setAttribute("au_id", au_id);
+        auto.setAttribute("o_id", o_id);
+
+        Element rendszamElement = createElement(doc, "rendszam", rendszam);
+        Element tipusElement = createElement(doc, "tipus", tipus);
+        Element markaElement = createElement(doc, "marka", marka);
+
+        auto.appendChild(rendszamElement);
+        auto.appendChild(tipusElement);
+        auto.appendChild(markaElement);
+
+        rootElement.appendChild(auto);
+    }
+    private static void addSzerelo(Document doc, Element rootElement, String sz_id, String au_id, String nev, String fizetes, List<String> telefonok) {
+        Element szerelo = doc.createElement("Szerelo");
+        szerelo.setAttribute("sz_id", sz_id);
+        szerelo.setAttribute("au_id", au_id);
+
+        Element nevElement = createElement(doc, "nev", nev);
+        Element fizetesElement = createElement(doc, "fizetes", fizetes);
+
+        szerelo.appendChild(nevElement);
+        szerelo.appendChild(fizetesElement);
+
+        for (String telefon : telefonok) {
+            Element telefonElement = createElement(doc, "telefon", telefon);
+            szerelo.appendChild(telefonElement);
+        }
+
+        rootElement.appendChild(szerelo);
+    }
+    private static void addCserealkatreszek(Document doc, Element rootElement, String au_id, String sz_id, List<String> alkatreszek) {
+        Element cserealkatreszek = doc.createElement("cserealkatreszek");
+        cserealkatreszek.setAttribute("au_id", au_id);
+        cserealkatreszek.setAttribute("sz_id", sz_id);
+
+        for (String alkatresz : alkatreszek) {
+            Element alkatreszElement = createElement(doc, "cserealkatresz", alkatresz);
+            cserealkatreszek.appendChild(alkatreszElement);
+        }
+
+        rootElement.appendChild(cserealkatreszek);
+    }
+
+
+    private static void printDocument(Document doc) {
+        try {
+            File outputFile = new File("XML_U3ROFS2.xml");
+            PrintWriter writer = new PrintWriter(new FileWriter(outputFile, true));
+
+            // Kiírjuk az XML főgyökér elemét a konzolra és fájlba
+            Element rootElement = doc.getDocumentElement();
+            String rootName = rootElement.getTagName();
+            StringJoiner rootAttributes = new StringJoiner(" ");
+            NamedNodeMap rootAttributeMap = rootElement.getAttributes();
+
+            for (int i = 0; i < rootAttributeMap.getLength(); i++) {
+                Node attribute = rootAttributeMap.item(i);
+                rootAttributes.add(attribute.getNodeName() + "=\"" + attribute.getNodeValue() + "\"");
             }
-        }
 
-        // Záró tag
-        if (element.getChildNodes().getLength() > 0) {
-            System.out.print(getIndentation(depth));
+            System.out.print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+            writer.print("<?xml version=\"1.0\" encoding=\"UTF-8\"?>\n");
+
+            System.out.print("<" + rootName + " " + rootAttributes.toString() + ">\n");
+            writer.print("<" + rootName + " " + rootAttributes.toString() + ">\n");
+
+            NodeList autosiskolaList = doc.getElementsByTagName("Autosiskola");
+            NodeList ugyfelList = doc.getElementsByTagName("Ugyfel");
+            NodeList oktatoList = doc.getElementsByTagName("Oktato");
+            NodeList autoList = doc.getElementsByTagName("Auto");
+            NodeList szereloList = doc.getElementsByTagName("Szerelo");
+            NodeList cserealkatreszekList = doc.getElementsByTagName("cserealkatreszek");
+
+            // Kiírjuk az XML-t a konzolra megtartva az eredeti formázást
+            printNodeList(autosiskolaList, writer);
+            System.out.println("");
+            writer.println("");
+            printNodeList(ugyfelList, writer);
+            System.out.println("");
+            writer.println("");
+            printNodeList(oktatoList, writer);
+            System.out.println("");
+            writer.println("");
+            printNodeList(autoList, writer);
+            System.out.println("");
+            writer.println("");
+            printNodeList(szereloList, writer);
+            System.out.println("");
+            writer.println("");
+            printNodeList(cserealkatreszekList, writer);
+
+            // Zárjuk le az XML gyökér elemét
+            System.out.println("</" + rootName + ">");
+            writer.append("</" + rootName + ">");
+
+            writer.close();
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-        writer.write("</" + element.getNodeName() + ">");
-        System.out.print("</" + element.getNodeName() + ">");
     }
 
-    private static String getIndentation(int depth) {
-        StringBuilder indentation = new StringBuilder();
-        for (int i = 0; i < depth; i++) {
-            indentation.append("  "); // 2 szóköz a behúzás
+    private static void printNodeList(NodeList nodeList, PrintWriter writer) {
+        for (int i = 0; i < nodeList.getLength(); i++) {
+            Node node = nodeList.item(i);
+            printNode(node, 1, writer);
+            System.out.println("");
+            writer.println("");
         }
-        return indentation.toString();
+    }
+
+    private static void printNode(Node node, int indent, PrintWriter writer) {
+        if (node.getNodeType() == Node.ELEMENT_NODE) {
+            Element element = (Element) node;
+            String nodeName = element.getTagName();
+            StringJoiner attributes = new StringJoiner(" ");
+            NamedNodeMap attributeMap = element.getAttributes();
+
+            for (int i = 0; i < attributeMap.getLength(); i++) {
+                Node attribute = attributeMap.item(i);
+                attributes.add(attribute.getNodeName() + "=\"" + attribute.getNodeValue() + "\"");
+            }
+
+            System.out.print(getIndentString(indent));
+            System.out.print("<" + nodeName + " " + attributes.toString() + ">");
+
+            writer.print(getIndentString(indent));
+            writer.print("<" + nodeName + " " + attributes.toString() + ">");
+
+            NodeList children = element.getChildNodes();
+            if (children.getLength() == 1 && children.item(0).getNodeType() == Node.TEXT_NODE) {
+                System.out.print(children.item(0).getNodeValue());
+                writer.print(children.item(0).getNodeValue());
+            } else {
+                System.out.println();
+                writer.println();
+                for (int i = 0; i < children.getLength(); i++) {
+                    printNode(children.item(i), indent + 1, writer);
+                }
+                System.out.print(getIndentString(indent));
+                writer.print(getIndentString(indent));
+            }
+            System.out.println("</" + nodeName + ">");
+            writer.println("</" + nodeName + ">");
+        }
+    }
+
+    private static Element createElement(Document doc, String name, String value) {
+        Element element = doc.createElement(name);
+        element.appendChild(doc.createTextNode(value));
+        return element;
+    }
+
+    private static String getIndentString(int indent) {
+        StringBuilder sb = new StringBuilder();
+        for (int i = 0; i < indent; i++) {
+            sb.append("  "); // 2 spaces per indent level
+        }
+        return sb.toString();
     }
 }
