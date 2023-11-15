@@ -9,12 +9,12 @@ import java.util.ArrayList;
 public class Main {
     public static void main(String[] args) {
         //RootElement beolvasása
-        DomReadU3ROFS.ReadXMLDocument("./src/XML_U3ROFS.xml");
+        DomReadU3ROFS.ReadXMLDocument("XMLTAskU3ROFS\\DOMParseU3ROFS\\src\\XML_U3ROFS.xml");
         //Elementek módosítása
-        DomModifyU3ROFS.ModifyElement("./src/XML_U3ROFS.xml");
+        DomModifyU3ROFS.ModifyElement("XMLTAskU3ROFS\\DOMParseU3ROFS\\src\\XML_U3ROFS.xml");
         //Elemek kiírása
         DomWriteU3ROFS.WriteElementsToFileAndConsole();
         //Elementek lekérdezése
-        DomQueryU3ROFS.QueryPrescribedDetails("./src/XML_U3ROFS.xml");
+        DomQueryU3ROFS.QueryPrescribedDetails("XMLTAskU3ROFS\\DOMParseU3ROFS\\src\\XML_U3ROFS.xml");
     }
 }

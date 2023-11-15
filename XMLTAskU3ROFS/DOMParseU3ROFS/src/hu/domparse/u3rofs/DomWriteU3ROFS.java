@@ -176,7 +176,6 @@ public class DomWriteU3ROFS {
             File outputFile = new File("XML_U3ROFS2.xml");
             PrintWriter writer = new PrintWriter(new FileWriter(outputFile, true));
 
-            // Kiírjuk az XML főgyökér elemét a konzolra és fájlba
             Element rootElement = doc.getDocumentElement();
             String rootName = rootElement.getTagName();
             StringJoiner rootAttributes = new StringJoiner(" ");
@@ -217,7 +216,6 @@ public class DomWriteU3ROFS {
             writer.println("");
             printNodeList(cserealkatreszekList, writer);
 
-            // Zárjuk le az XML gyökér elemét
             System.out.println("</" + rootName + ">");
             writer.append("</" + rootName + ">");
 
@@ -281,7 +279,7 @@ public class DomWriteU3ROFS {
     private static String getIndentString(int indent) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < indent; i++) {
-            sb.append("  "); // 2 spaces per indent level
+            sb.append("  "); 
         }
         return sb.toString();
     }
