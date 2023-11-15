@@ -14,8 +14,11 @@ public class DomQueryU3ROFS {
     public static void QueryPrescribedDetails(String filePath) {
         Document doc = null;
         try {
+            // Fájl beolvasása
             File inputFile = new File(filePath);
+            // Ez létrehoz egy singleton objektumot, amely lehetővé teszi a dokumentumok
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            // Ez a dokumentumépítő példányok létrehozására szolgál
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
             doc = dBuilder.parse(inputFile);
             doc.getDocumentElement().normalize();
@@ -43,14 +46,16 @@ public class DomQueryU3ROFS {
 
         // Új szakasz kezdete a konzolon
         System.out.println();
-        // Kiírja, hogy "Összes Ugyfel adatainak kiíratása, akik egy bizonyos Autosiskola-hoz tartoznak"
+        // Kiírja, hogy "Összes Ugyfel adatainak kiíratása, akik egy bizonyos
+        // Autosiskola-hoz tartoznak"
         System.out.println("Összes Ugyfel adatainak kiíratása, akik egy bizonyos Autosiskola-hoz tartoznak");
         // Lekéri az összes "Ugyfel" elemet az XML-ből
         NodeList ugyfelList = doc.getElementsByTagName("Ugyfel");
         // Végigmegy az összes ügyfél elemen
         for (int i = 0; i < ugyfelList.getLength(); i++) {
             Node node = ugyfelList.item(i);
-            // Ellenőrzi, hogy az elem tényleg elem típusú-e és az "ai_id" attribútum értéke "1"
+            // Ellenőrzi, hogy az elem tényleg elem típusú-e és az "ai_id" attribútum értéke
+            // "1"
             if (node.getNodeType() == Node.ELEMENT_NODE && "2".equals(((Element) node).getAttribute("ai_id"))) {
                 Element ugyfel = (Element) node;
                 // Kiírja az ügyfél nevét
@@ -60,14 +65,16 @@ public class DomQueryU3ROFS {
 
         // Új szakasz kezdete a konzolon
         System.out.println();
-        // Kiírja, hogy "Azoknak az Oktato-knak a neve és fizetése, akik bizonyos Autosiskola-ban tanítanak"
+        // Kiírja, hogy "Azoknak az Oktato-knak a neve és fizetése, akik bizonyos
+        // Autosiskola-ban tanítanak"
         System.out.println("Azoknak az Oktato-knak a neve és fizetése, akik bizonyos Autosiskola-ban tanítanak");
         // Lekéri az összes "Oktato" elemet az XML-ből
         NodeList oktatoList = doc.getElementsByTagName("Oktato");
         // Végigmegy az összes oktató elemen
         for (int i = 0; i < oktatoList.getLength(); i++) {
             Node node = oktatoList.item(i);
-            // Ellenőrzi, hogy az elem tényleg elem típusú-e és az "ai_id" attribútum értéke "1"
+            // Ellenőrzi, hogy az elem tényleg elem típusú-e és az "ai_id" attribútum értéke
+            // "1"
             if (node.getNodeType() == Node.ELEMENT_NODE) {
                 Element oktato = (Element) node;
                 if ("2".equals(oktato.getAttribute("ai_id"))) {
@@ -98,7 +105,8 @@ public class DomQueryU3ROFS {
         }
         // Új szakasz kezdete a konzolon
         System.out.println();
-        // Kiírja, hogy "Szerelők és az általuk szerelt autók, valamint a cserélt alkatrészek:"
+        // Kiírja, hogy "Szerelők és az általuk szerelt autók, valamint a cserélt
+        // alkatrészek:"
         System.out.println("Szerelők és az általuk szerelt autók, valamint a cserélt alkatrészek:");
 
         // Lekéri az összes "Szerelo" elemet az XML-ből
@@ -119,12 +127,16 @@ public class DomQueryU3ROFS {
                 for (int j = 0; j < autoList.getLength(); j++) {
                     Node autoNode = autoList.item(j);
                     // Ellenőrzi, hogy az elem tényleg elem típusú-e és az auto ID egyezik-e
-                    if (autoNode.getNodeType() == Node.ELEMENT_NODE && autoId.equals(((Element) autoNode).getAttribute("au_id"))) {
+                    if (autoNode.getNodeType() == Node.ELEMENT_NODE
+                            && autoId.equals(((Element) autoNode).getAttribute("au_id"))) {
                         Element auto = (Element) autoNode;
                         // Kiírja az autó rendszámát, típusát és márkáját
-                        System.out.println("Auto Rendszám: " + auto.getElementsByTagName("rendszam").item(0).getTextContent());
-                        System.out.println("Auto Típus: " + auto.getElementsByTagName("tipus").item(0).getTextContent());
-                        System.out.println("Auto Márka: " + auto.getElementsByTagName("marka").item(0).getTextContent());
+                        System.out.println(
+                                "Auto Rendszám: " + auto.getElementsByTagName("rendszam").item(0).getTextContent());
+                        System.out
+                                .println("Auto Típus: " + auto.getElementsByTagName("tipus").item(0).getTextContent());
+                        System.out
+                                .println("Auto Márka: " + auto.getElementsByTagName("marka").item(0).getTextContent());
                     }
                 }
 
@@ -133,7 +145,8 @@ public class DomQueryU3ROFS {
                 for (int k = 0; k < cserealkatreszekList.getLength(); k++) {
                     Node cserealkatreszekNode = cserealkatreszekList.item(k);
                     // Ellenőrzi, hogy az elem tényleg elem típusú-e és az auto ID egyezik-e
-                    if (cserealkatreszekNode.getNodeType() == Node.ELEMENT_NODE && autoId.equals(((Element) cserealkatreszekNode).getAttribute("au_id"))) {
+                    if (cserealkatreszekNode.getNodeType() == Node.ELEMENT_NODE
+                            && autoId.equals(((Element) cserealkatreszekNode).getAttribute("au_id"))) {
                         Element cserealkatreszek = (Element) cserealkatreszekNode;
                         NodeList alkatresek = cserealkatreszek.getElementsByTagName("cserealkatresz");
                         System.out.println("Cserélt alkatrészek:");

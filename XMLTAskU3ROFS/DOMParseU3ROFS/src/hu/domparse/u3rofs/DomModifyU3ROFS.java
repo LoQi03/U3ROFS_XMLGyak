@@ -10,27 +10,33 @@ import java.io.File;
 
 public class DomModifyU3ROFS {
     public static void ModifyElement(String filePath) {
+        // Fájl beolvasása
         try {
             File inputFile = new File(filePath);
+            // Ez létrehoz egy singleton objektumot, amely lehetővé teszi a dokumentumok
+            // építését
             DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            // Ez a dokumentumépítő példányok létrehozására szolgál
             DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            // Ez a dokumentum építésére szolgál
             Document doc = dBuilder.parse(inputFile);
+            // A dokumentum normalizálása
             doc.getDocumentElement().normalize();
             ModifyPrescribedElements(doc);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
-    private static void ModifyPrescribedElements(Document doc)
-    {
-        //Root Element lekérése
+
+    private static void ModifyPrescribedElements(Document doc) {
+        // Root Element lekérése
         NodeList nList = doc.getElementsByTagName("U3ROFS_Autosiskolak");
         Element element = (Element) nList.item(0);
-        //Megváltoztatom az autosiskolákból az első elem nevét
+        // Megváltoztatom az autosiskolákból az első elem nevét
         NodeList autosiskolaList = element.getElementsByTagName("Autosiskola");
         Element autosiskola = (Element) autosiskolaList.item(0);
         autosiskola.getElementsByTagName("nev").item(0).setTextContent("Fast Car");
-        //Megváltoztatom az atributumot is
+        // Megváltoztatom az atributumot is
         autosiskola.setAttribute("ai_id", "4");
 
         // Például az első Ugyfel nevét változtatja meg
@@ -44,7 +50,7 @@ public class DomModifyU3ROFS {
         NodeList oktatoList = element.getElementsByTagName("Oktato");
         Element oktato = (Element) oktatoList.item(0);
         oktato.getElementsByTagName("fizetes").item(0).setTextContent("350000");
-        oktato.setAttribute("ai_id","4");
+        oktato.setAttribute("ai_id", "4");
 
         // Az első Auto markáját változtatja meg
         NodeList autoList = element.getElementsByTagName("Auto");

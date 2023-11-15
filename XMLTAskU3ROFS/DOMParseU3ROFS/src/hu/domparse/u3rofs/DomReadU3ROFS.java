@@ -1,4 +1,5 @@
 package hu.domparse.u3rofs;
+
 import org.w3c.dom.*;
 import org.xml.sax.SAXException;
 
@@ -8,21 +9,25 @@ import java.util.StringJoiner;
 
 public class DomReadU3ROFS {
     public static void ReadXMLDocument(String filePath) {
-            try {
-                File inputFile = new File(filePath);
-                DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
-                DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
-                Document doc = dBuilder.parse(inputFile);
-                doc.getDocumentElement().normalize();
-                printDocument(doc);
-            } catch (ParserConfigurationException e) {
-                e.printStackTrace();
-            } catch (IOException e) {
-                e.printStackTrace();
-            } catch (SAXException e) {
-                e.printStackTrace();
-            }
+        try {
+            // Fájl beolvasása
+            File inputFile = new File(filePath);
+            // Ez létrehoz egy singleton objektumot, amely lehetővé teszi a dokumentumok
+            DocumentBuilderFactory dbFactory = DocumentBuilderFactory.newInstance();
+            // Ez a dokumentumépítő példányok létrehozására szolgál
+            DocumentBuilder dBuilder = dbFactory.newDocumentBuilder();
+            Document doc = dBuilder.parse(inputFile);
+            doc.getDocumentElement().normalize();
+            printDocument(doc);
+        } catch (ParserConfigurationException e) {
+            e.printStackTrace();
+        } catch (IOException e) {
+            e.printStackTrace();
+        } catch (SAXException e) {
+            e.printStackTrace();
+        }
     }
+
     private static void printDocument(Document doc) {
         try {
             File outputFile = new File("XML_U3ROFS1.xml");
@@ -90,20 +95,20 @@ public class DomReadU3ROFS {
     }
 
     private static void printNode(Node node, int indent, PrintWriter writer) {
+        // Ha a node egy szöveg node, akkor kiírjuk a tartalmát
         if (node.getNodeType() == Node.ELEMENT_NODE) {
             Element element = (Element) node;
             String nodeName = element.getTagName();
             StringJoiner attributes = new StringJoiner(" ");
             NamedNodeMap attributeMap = element.getAttributes();
-
+            // Kiírjuk az elem nevét és attribútumait
             for (int i = 0; i < attributeMap.getLength(); i++) {
                 Node attribute = attributeMap.item(i);
                 attributes.add(attribute.getNodeName() + "=\"" + attribute.getNodeValue() + "\"");
             }
-
+            // Kiírjuk az elem tartalmát
             System.out.print(getIndentString(indent));
             System.out.print("<" + nodeName + " " + attributes.toString() + ">");
-
             writer.print(getIndentString(indent));
             writer.print("<" + nodeName + " " + attributes.toString() + ">");
 
@@ -125,12 +130,13 @@ public class DomReadU3ROFS {
         }
 
     }
-    private static String getIndentString ( int indent){
+
+    private static String getIndentString(int indent) {
         StringBuilder sb = new StringBuilder();
         for (int i = 0; i < indent; i++) {
-            sb.append("  "); // 2 spaces per indent level
+            // A szóközök száma, amivel indentálunk
+            sb.append("  ");
         }
         return sb.toString();
     }
 }
-
