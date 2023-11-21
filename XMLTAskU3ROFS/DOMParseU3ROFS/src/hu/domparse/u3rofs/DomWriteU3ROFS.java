@@ -197,7 +197,7 @@ public class DomWriteU3ROFS {
     private static void printDocument(Document doc) {
         try {
             // Fájlba írás
-            File outputFile = new File("XML_U3ROFS2.xml");
+            File outputFile = new File("XML_U3ROFS3.xml");
             // Írás a konzolra
             PrintWriter writer = new PrintWriter(new FileWriter(outputFile, true));
             // Kiírja az XML főgyökér elemét a konzolra és fájlba
